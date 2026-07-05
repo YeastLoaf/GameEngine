@@ -3,6 +3,6 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="Engine/Engine.vcxproj" />
-  <Project Path="Game/Game.vcxproj" />
+  <Project Path="Engine/Engine.vcxproj" Id="154fb8a3-958b-47f5-8a82-c060de5beda9" />
+  <Project Path="Game/Game.vcxproj" Id="e57517fc-6fc3-46bb-8157-d3f6616d6c62" />
 </Solution>
