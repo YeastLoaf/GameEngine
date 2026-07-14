@@ -6,6 +6,7 @@
 namespace nu {
 	bool Renderer::initialize(const char* name, int width, int height) {
 
+
         SDL_Init(SDL_INIT_VIDEO);
 
         m_window = SDL_CreateWindow(name, width, height, 0);

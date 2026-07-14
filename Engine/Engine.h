@@ -6,6 +6,7 @@
 #include "Input.h"
 #include "GameTime.h"
 #include "MathUtil.h"
+#include "Actor.h"
 
 #include <vector>
 #include <iostream>

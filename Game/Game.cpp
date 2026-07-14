@@ -2,46 +2,6 @@
 
 using namespace nu;
 
-struct Transform {
-    Vector2 pos;
-    float rotation;
-    float scale;
-};
-
-class Actor {
-public:
-    Actor() = default;
-    Actor(const Transform& transform) : m_transform{ transform } {}
-
-    void Update(float dt) {
-        m_transform.pos += (m_velocity * dt);
-        m_velocity *= 0.997f;
-
-        m_transform.pos.x = Wrap(0.0f, 1920.0f, m_transform.pos.x);
-        m_transform.pos.y = Wrap(0.0f, 1024.0f, m_transform.pos.y);
-    }
-
-    void Draw(const Renderer& renderer) const {
-        renderer.SetColor(0.5f, 0.1f, 0.2f);
-        renderer.DrawFillRect(m_transform.pos.x - (m_transform.scale * 0.5f), m_transform.pos.y - (m_transform.scale * 0.5f), m_transform.scale, m_transform.scale);
-    }
-
-    const Transform& GetTeansform() const { return m_transform; }
-
-    void SetPosition(const Vector2 position) { m_transform.pos = position; }
-
-    void SetRotation(float rotation) { m_transform.rotation = rotation; }
-
-    void SetScale(float scale) { m_transform.scale = scale; }
-
-    const Vector2 GetVelocity() const { return m_velocity; }
-    void SetVelocity(const Vector2 velocity) { m_velocity = velocity; }
-
-protected:
-    Transform m_transform;
-    Vector2 m_velocity{ 0, 0 };
-};
-
 int main()
 {
     // INITIALIZE
