@@ -9,8 +9,6 @@ class TripleShot : public nu::Actor {
 public:
 	TripleShot() = default;
 	TripleShot(const TripleShotDesc& BulletDesc) : Actor{ BulletDesc }, m_speed{ BulletDesc.speed } {}
-	TripleShot(float speed, const nu::Transform& transform) : Actor{ transform }, m_speed{ speed } {}
-	TripleShot(float speed, const nu::Transform& transform, const nu::Model& model) : Actor{ transform, model }, m_speed{ speed } {}
 
 	void Update(float dt) override;
 

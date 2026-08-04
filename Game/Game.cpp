@@ -46,17 +46,31 @@ int main() {
         //delete objectC;
     }
 
-    std::cout << "\n==================smart pointers==================\n";
+    std::cout << "\n==================unique pointers==================\n";
     {
         std::unique_ptr<Object> objectA = std::make_unique<Object>();
         std::cout << objectA.get() << std::endl;
         std::unique_ptr<Object> objectB;
         objectB = std::move(objectA);
-        std::cout << objectA.get() << std::endl;
         std::cout << objectB.get() << std::endl;
 
         objectB.reset();
     }
+
+    std::cout << "\n==================shared pointers==================\n";
+    std::shared_ptr<Object> objectC;
+    {
+        std::shared_ptr<Object> objectA = std::make_shared<Object>();
+        std::cout << objectA.get() << std::endl;
+        std::cout << objectA.use_count() << std::endl;
+        auto objectB = objectA;
+        std::cout << objectB.get() << std::endl;
+        std::cout << objectB.use_count() << std::endl;
+        objectC = objectA;
+        std::cout << objectC.get() << std::endl;
+        std::cout << objectC.use_count() << std::endl;
+    }
+    std::cout << objectC.use_count() << std::endl;
 
     //return 0;
 
@@ -78,8 +92,10 @@ int main() {
     FMOD::Sound* sound = nullptr;
     std::vector<FMOD::Sound*> sounds;
 
-    //audio->createSound("cowbell.wav", FMOD_DEFAULT, 0, &sound);
-    //sounds.push_back(sound);
+
+    // create texture, using shared_ptr so texture can be shared
+    std::shared_ptr<Texture> texture = std::make_shared<Texture>();
+    texture->Load("bread.png", Engine::Get().GetRenderer());
 
     // MAIM LOOP
     bool quit = false;
@@ -105,18 +121,14 @@ int main() {
         game.Update(dt);
         audio->update();
 
-        //audio jungle
-        //if (e.GetInput().GetKeyPressed(SDL_SCANCODE_1))
-        //{
-        //    audio->playSound(sounds[0], 0, false, nullptr);
-        //}
-
 
         // RENDER
         Engine::Get().GetRenderer().SetColor(0.0f, 0.0f, 0.0f);
         Engine::Get().GetRenderer().Clear();
 
         game.Draw(Engine::Get().GetRenderer());
+
+        Engine::Get().GetRenderer().DrawTexture(texture.get(), 30, 30);
 
         Engine::Get().GetPS().Draw(Engine::Get().GetRenderer());
         
