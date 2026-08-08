@@ -8,6 +8,9 @@
 #include "Assets.h"
 #include "FMod.h"
 
+#include <memory>
+#include <ResourceManager.h>
+
 using namespace nu;
 
 bool SpaceGame::Initialize() {
@@ -16,13 +19,16 @@ bool SpaceGame::Initialize() {
     m_scene = new Scene();
     m_scene->SetGame(this);
 
-    titleFont = new Font();
+    titleFont = Resources().Get<Font>("assets/fonts/airstrike.ttf", 64);
+
+    //Resources().Get<Font>("", 64);
+
     titleFont->Load("assets/fonts/airstrike.ttf", 64);
 
     titleText = new Text(titleFont);
     titleText->Create(Engine::Get().GetRenderer(), "XENON", Color{ 1.0f, 1.0f, 1.0f });
 
-    gameFont = new Font();
+    gameFont = Resources().Get<Font>("assets/fonts/airstrike.ttf", 64);
     gameFont->Load("assets/fonts/airstrike.ttf", 32);
 
     scoreText = new Text(gameFont);
@@ -145,7 +151,7 @@ void SpaceGame::SpawnPlayer() {
     PlayerDesc playerDesc;
     playerDesc.name = "Player";
     playerDesc.model = assets::playerModel;
-    playerDesc.transform = Transform{ Vector2{640.0f, 512.0f}, 0.0f, 15.0f };
+    playerDesc.transform = Transform{ Vector2{640.0f, 512.0f}, 0.0f, 1.0f };
     playerDesc.vel = Vector2{ 0.0f, 0.0f };
     playerDesc.damping = 3.0f;
     playerDesc.speed = 4000.0f;
@@ -158,7 +164,7 @@ void SpaceGame::SpawnEnemy() {
     EnemyDesc enemyDesc;
     enemyDesc.name = "Enemy";
     enemyDesc.model = assets::enemyModel;
-    enemyDesc.transform = Transform{ Vector2{ nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetWidth()), nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetHeight())}, 90.0f, 10.0f };
+    enemyDesc.transform = Transform{ Vector2{ nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetWidth()), nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetHeight())}, 90.0f, 1.0f };
     enemyDesc.vel = Vector2{ 0.0f, 0.0f };
     enemyDesc.damping = 3.0f;
     enemyDesc.speed = RandomFloat(1000.0f, 4000.0f);

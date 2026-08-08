@@ -15,7 +15,7 @@ namespace nu {
     bool Texture::Load(const std::string& filename, Renderer& renderer)
     {
         // load image onto surface
-        SDL_Surface* surface = IMG_Load("bread.png");
+        SDL_Surface* surface = IMG_Load("player.png");
         if (!surface)
         {
             std::cerr << "Could not load image: " << filename << std::endl;
@@ -32,15 +32,9 @@ namespace nu {
             return false;
         }
 
+        // cache size
+        SDL_GetTextureSize(m_texture, &m_size.x, &m_size.y);
+
         return true;
-    }
-
-    Vector2 Texture::GetSize()
-    {
-        Vector2 v;
-        // https://wiki.libsdl.org/SDL3/SDL_GetTextureSize
-        SDL_GetTextureSize(m_texture, &v.x, &v.y);
-
-        return v;
     }
 }
