@@ -15,7 +15,7 @@ namespace nu {
     bool Texture::Load(const std::string& filename, Renderer& renderer)
     {
         // load image onto surface
-        SDL_Surface* surface = IMG_Load("player.png");
+        SDL_Surface* surface = IMG_Load(filename.c_str());
         if (!surface)
         {
             std::cerr << "Could not load image: " << filename << std::endl;

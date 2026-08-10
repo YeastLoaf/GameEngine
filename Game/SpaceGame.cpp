@@ -19,7 +19,7 @@ bool SpaceGame::Initialize() {
     m_scene = new Scene();
     m_scene->SetGame(this);
 
-    titleFont = Resources().Get<Font>("assets/fonts/airstrike.ttf", 64);
+    titleFont = Resources().Get<Font>("assets/fonts/airstrike.ttf", 64.0f);
 
     //Resources().Get<Font>("", 64);
 
@@ -28,7 +28,7 @@ bool SpaceGame::Initialize() {
     titleText = new Text(titleFont);
     titleText->Create(Engine::Get().GetRenderer(), "XENON", Color{ 1.0f, 1.0f, 1.0f });
 
-    gameFont = Resources().Get<Font>("assets/fonts/airstrike.ttf", 64);
+    gameFont = Resources().Get<Font>("assets/fonts/airstrike.ttf", 64.0f);
     gameFont->Load("assets/fonts/airstrike.ttf", 32);
 
     scoreText = new Text(gameFont);
@@ -150,7 +150,8 @@ void SpaceGame::OnPlayerDead() {
 void SpaceGame::SpawnPlayer() {
     PlayerDesc playerDesc;
     playerDesc.name = "Player";
-    playerDesc.model = assets::playerModel;
+    //playerDesc.model = assets::playerModel;
+    playerDesc.texture = Resources().Get<Texture>("player.png", Engine::Get().GetRenderer());
     playerDesc.transform = Transform{ Vector2{640.0f, 512.0f}, 0.0f, 1.0f };
     playerDesc.vel = Vector2{ 0.0f, 0.0f };
     playerDesc.damping = 3.0f;
@@ -163,7 +164,8 @@ void SpaceGame::SpawnPlayer() {
 void SpaceGame::SpawnEnemy() {
     EnemyDesc enemyDesc;
     enemyDesc.name = "Enemy";
-    enemyDesc.model = assets::enemyModel;
+    //enemyDesc.model = assets::enemyModel;
+    enemyDesc.texture = Resources().Get<Texture>("enemy.png", Engine::Get().GetRenderer());
     enemyDesc.transform = Transform{ Vector2{ nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetWidth()), nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetHeight())}, 90.0f, 1.0f };
     enemyDesc.vel = Vector2{ 0.0f, 0.0f };
     enemyDesc.damping = 3.0f;

@@ -6,6 +6,8 @@
 #include "../Game/Assets.h"
 #include "FMod.h"
 
+#include <ResourceManager.h>
+
 void Player::Update(float dt) {
     float thrust = 0.0f;
     if (nu::Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_W)) thrust = +m_speed;
@@ -68,7 +70,8 @@ void Player::Update(float dt) {
         BulletDesc desc;
         desc.name = "Bullet";
         desc.tag = "PlayerBullet";
-        desc.model = assets::bulletModel;
+        //desc.model = assets::bulletModel;
+        desc.texture = nu::Resources().Get<nu::Texture>("bullet.png", nu::Engine::Get().GetRenderer());
         desc.transform = m_transform;
         desc.transform.scale = sizes;
         desc.speed = 400.0f;

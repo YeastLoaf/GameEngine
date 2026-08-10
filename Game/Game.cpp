@@ -12,109 +12,93 @@
 #include <map>
 #include <memory>
 #include <random>
+#include <fstream>
 
 using namespace nu;
 
-class Object {
-public:
-    Object() { std::cout << "constructor\n"; }
-    ~Object() { std::cout << "destructor\n"; }
-
-    Object(const Object& object) { std::cout << "copy\n"; }
-    Object& operator = (const Object& object) { std::cout << "assignment\n"; return *this; }
-};
-
-uint32_t seed = 1234;
-
-uint32_t RNG(){
-    seed = (seed * 1103515245) + 12345;
-    return seed;
-}
-
 int main() {
-    /*
-    // rand()
-    for (size_t i = 0; i < 10; i++) std::cout << RNG() << " ";
-    std::cout << std::endl;
-    seed = 1234;
-    for (size_t i = 0; i < 10; i++) std::cout << RNG() << " ";
-    std::cout << std::endl;
-    
-    //srand((unsigned int)time(NULL));
-    SeedRandom((unsigned int)time(NULL));
-    for (size_t i = 0; i < 10; i++) std::cout << rand() << " ";
-    std::cout << std::endl;
+    //SetWorkingDirectory("assets");
 
-    // random<>
-    std::random_device randomDevice;
-    std::cout << randomDevice.min() << std::endl;
-    std::cout << randomDevice.max() << std::endl;
-    std::cout << randomDevice.entropy() << std::endl;
+    //{
+    //    // read file (input file ))
+    //    std::ifstream file("assets/data/text.txt");
+    //    if (file.is_open()) {
+    //        std::string str;
+    //        while (std::getline(file, str)) {
+    //        std::cout << str << std::endl;
+    //        }
+    //    }
+    //    else {
+    //        std::cout << "Could not load" << std::endl;
+    //    }
+    //    file.close();
+    //}
 
-    std::mt19937 generator(randomDevice());
+    //{
+    //    // read file (output file ))
+    //    std::ofstream file("assets/data/text.txt", std::ios::app);
+    //    if (file.is_open()) {
+    //        file << "Have a day.\n";
+    //    }
+    //}
 
-    std::uniform_int_distribution<> dist(0, 20);
-    for (size_t i = 0; i < 20; i++) std::cout << dist(generator) << " ";
-    std::cout << std::endl;
+    //{
+    //    // read / write (input / output file)
+    //    std::fstream file("assets/data/text.txt", std::ios::in | std::ios::out | std::ios::app);
+    //    if (file.is_open()) {
+    //        // input
+    //        file << "Add a line.\n";
+    //        file.seekg(0);
+    //        // output
+    //        std::string str;
+    //        while (std::getline(file, str)) {
+    //            std::cout << str << std::endl;
+    //        }
+    //    }
+    //}
 
-    std::uniform_real_distribution<float> distReal(-10.0f, 20.0f);
-    for (size_t i = 0; i < 20; i++) std::cout << distReal(generator) << " ";
-    std::cout << std::endl;
+    //{
+    //    std::string name;
+    //    int score;
+    //    bool isAlive;
 
-    return 0;
+    //    // save game data
+    //    bool save = false;
+    //    if (save) {
+    //        name = "Tyler";
+    //        score = 420;
+    //        isAlive = true;
 
-    std::cout << "==================object==================\n";
-    {
-        Object objectA;
-        Object objectB(objectA);
-        Object objectC;
-        objectC = objectA;
-    }
+    //        std::ofstream file("assets/data/game.txt", std::ios::trunc);
+    //        if (file.is_open()) {
+    //            file << name << "\n";
+    //            file << score << "\n";
+    //            file << std::boolalpha << isAlive << "\n";
+    //        }
+    //    }
 
-    std::cout << "\n==================raw pointers==================\n";
-    {
-        Object* objectA = new Object();
-        std::cout << objectA << std::endl;
-        Object* objectB = new Object(*objectA);
-        std::cout << objectB << std::endl;
-        Object* objectC = nullptr;
-        objectC = objectA;
-        std::cout << objectC << std::endl;
+    //    // load game data
+    //    bool load = true;
+    //    if (load) {
+    //        // read file (input file ))
+    //        std::ifstream file("assets/data/game.txt");
+    //        if (file.is_open()) {
+    //            std::getline(file, name);
 
-        delete objectA;
-        delete objectB;
-        //delete objectC;
-    }
+    //            std::string str;
+    //            std::getline(file, str);
 
-    std::cout << "\n==================unique pointers==================\n";
-    {
-        std::unique_ptr<Object> objectA = std::make_unique<Object>();
-        std::cout << objectA.get() << std::endl;
-        std::unique_ptr<Object> objectB;
-        objectB = std::move(objectA);
-        std::cout << objectB.get() << std::endl;
+    //            score = std::stoi(str);
+    //            file >> std::boolalpha >> isAlive;
+    //        }
+    //    }
 
-        objectB.reset();
-    }
-
-    std::cout << "\n==================shared pointers==================\n";
-    std::shared_ptr<Object> objectC;
-    {
-        std::shared_ptr<Object> objectA = std::make_shared<Object>();
-        std::cout << objectA.get() << std::endl;
-        std::cout << objectA.use_count() << std::endl;
-        auto objectB = objectA;
-        std::cout << objectB.get() << std::endl;
-        std::cout << objectB.use_count() << std::endl;
-        objectC = objectA;
-        std::cout << objectC.get() << std::endl;
-        std::cout << objectC.use_count() << std::endl;
-    }
-    std::cout << objectC.use_count() << std::endl;
+    //    std::cout << name << std::endl;
+    //    std::cout << score << std::endl;
+    //    std::cout << std::boolalpha << isAlive << std::endl;
+    //}
 
     //return 0;
-
-    */
 
     Engine& e = Engine::Get();
 
@@ -134,12 +118,7 @@ int main() {
     FMOD::Sound* sound = nullptr;
     std::vector<FMOD::Sound*> sounds;
 
-
-    // create texture, using shared_ptr so texture can be shared
-    //std::shared_ptr<Texture> texture = std::make_shared<Texture>();
-    //texture->Load("player.png", Engine::Get().GetRenderer());
-
-    // MAIM LOOP
+    // MAIN LOOP
     bool quit = false;
     while (!quit) {
 
@@ -169,8 +148,6 @@ int main() {
         Engine::Get().GetRenderer().Clear();
 
         game.Draw(Engine::Get().GetRenderer());
-
-        Engine::Get().GetRenderer().DrawTexture(*Resources().Get<Texture>("player.png", Engine::Get().GetRenderer()), 30, 30);
 
         Engine::Get().GetPS().Draw(Engine::Get().GetRenderer());
         

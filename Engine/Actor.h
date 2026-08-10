@@ -2,11 +2,13 @@
 
 #include "Transform.h"
 #include "Model.h"
+#include "Resource.h"
 #include <string>
 #include <memory>
 
 namespace nu {
     class Scene;
+    class Texture;
 
     struct ActorDesc {
         std::string name;
@@ -15,13 +17,14 @@ namespace nu {
         Vector2 vel;
         float damping{ 0.0f };
         float lifespan{ 0 };
-        std::shared_ptr<Model> model;
+        res_t<Model> model;
+        res_t<Texture> texture;
     };
 
     class Actor {
     public:
         Actor() = default;
-        Actor(const ActorDesc& actorDesc) : m_name{ actorDesc.name }, m_tag{ actorDesc.tag }, m_transform { actorDesc.transform }, m_damping{actorDesc.damping}, m_velocity{actorDesc.vel}, m_lifespan{actorDesc.lifespan}, m_model{actorDesc.model} {}
+        Actor(const ActorDesc& actorDesc) : m_name{ actorDesc.name }, m_tag{ actorDesc.tag }, m_transform{ actorDesc.transform }, m_damping{ actorDesc.damping }, m_velocity{ actorDesc.vel }, m_lifespan{ actorDesc.lifespan }, m_model{ actorDesc.model }, m_texture{ actorDesc.texture } {}
 
         virtual void Update(float dt);
         virtual void Draw(const class Renderer& renderer) const;
@@ -61,7 +64,9 @@ namespace nu {
         float m_lifespan{ 0.0f };
         bool m_destroyed{ false };
 
-        std::shared_ptr<Model> m_model;
+        res_t<Model> m_model;
+        res_t<Texture> m_texture;
+
         Scene* m_scene{ nullptr };
     };
 }
