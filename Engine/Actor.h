@@ -3,6 +3,7 @@
 #include "Transform.h"
 #include "Model.h"
 #include "Resource.h"
+#include "Object.h"
 #include <string>
 #include <memory>
 
@@ -21,7 +22,7 @@ namespace nu {
         res_t<Texture> texture;
     };
 
-    class Actor {
+    class Actor : public Object {
     public:
         Actor() = default;
         Actor(const ActorDesc& actorDesc) : m_name{ actorDesc.name }, m_tag{ actorDesc.tag }, m_transform{ actorDesc.transform }, m_damping{ actorDesc.damping }, m_velocity{ actorDesc.vel }, m_lifespan{ actorDesc.lifespan }, m_model{ actorDesc.model }, m_texture{ actorDesc.texture } {}

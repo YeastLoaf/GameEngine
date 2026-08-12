@@ -12,6 +12,8 @@
 #include "Game.h"
 #include "ParticleSystem.h"
 #include "Texture.h"
+#include "StringUtils.h"
+#include "Factory.h"
 
 #include <vector>
 #include <iostream>

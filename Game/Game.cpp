@@ -16,87 +16,99 @@
 
 using namespace nu;
 
+class Animal {
+public:
+    virtual void speak() { std::cout << "???"; }
+};
+
+class Cat : public Animal {
+    void speak() override { std::cout << "meow"; }
+};
+
+class Dog : public Animal {
+    void speak() override { std::cout << "woof"; }
+};
+
+class Bird : public Animal {
+    void speak() override { std::cout << "scraw"; }
+};
+
+/*
+enum class Type {
+    Cat = 1,
+    Dog = 2,
+    Bird = 3
+};
+
+Animal* Animalfactory(Type id) {
+    Animal* animal = nullptr;
+
+    switch (id) {
+    case Type::Cat:
+        animal = new Cat;
+        break;
+    case Type::Dog:
+        animal = new Dog;
+        break;
+    case Type::Bird:
+        animal = new Bird;
+        break;
+    }
+
+    return animal;
+}
+*/
+
+Animal* Animalfactory(const std::string& id) {
+    Animal* animal = nullptr;
+
+    if (nu::ToLower(id) == "cat") animal = new Cat;
+    else if (nu::EqualsIgnoreCase(id, "Dog")) animal = new Dog;
+    else if (id == "Bird") animal = new Bird;
+
+    return animal;
+}
+/*
+class ICreater {
+public:
+    virtual ~ICreater() = default;
+    virtual std::unique_ptr<Animal> Create() = 0;
+};
+
+template <typename T>
+class Creater : public ICreater {
+public:
+    std::unique_ptr<Animal> Create() override {
+        return std::make_unique<T>();
+    }
+};
+
+std::map<std::string, std::unique_ptr<ICreater>> registry;
+
+*/
+
 int main() {
-    //SetWorkingDirectory("assets");
+    //Factory::Instance().Register<Actor>("Actor");
+    //auto actor = Factory::Instance().Create<Actor>("Actor");
+    //std::cout << actor->IsActive() << std::endl;
+
+
+
+    //registry["Cat"] = std::make_unique<Creater<Cat>>();
+    //registry["Dog"] = std::make_unique<Creater<Dog>>();
 
     //{
-    //    // read file (input file ))
-    //    std::ifstream file("assets/data/text.txt");
-    //    if (file.is_open()) {
-    //        std::string str;
-    //        while (std::getline(file, str)) {
-    //        std::cout << str << std::endl;
-    //        }
-    //    }
-    //    else {
-    //        std::cout << "Could not load" << std::endl;
-    //    }
-    //    file.close();
+    //    auto animal = registry["Dog"]->Create();
+    //    animal->speak();
     //}
 
-    //{
-    //    // read file (output file ))
-    //    std::ofstream file("assets/data/text.txt", std::ios::app);
-    //    if (file.is_open()) {
-    //        file << "Have a day.\n";
-    //    }
-    //}
+    //std::string selection;
 
-    //{
-    //    // read / write (input / output file)
-    //    std::fstream file("assets/data/text.txt", std::ios::in | std::ios::out | std::ios::app);
-    //    if (file.is_open()) {
-    //        // input
-    //        file << "Add a line.\n";
-    //        file.seekg(0);
-    //        // output
-    //        std::string str;
-    //        while (std::getline(file, str)) {
-    //            std::cout << str << std::endl;
-    //        }
-    //    }
-    //}
+    //std::cout << "Selecte animal: ";
+    //std::cin >> selection;
 
-    //{
-    //    std::string name;
-    //    int score;
-    //    bool isAlive;
-
-    //    // save game data
-    //    bool save = false;
-    //    if (save) {
-    //        name = "Tyler";
-    //        score = 420;
-    //        isAlive = true;
-
-    //        std::ofstream file("assets/data/game.txt", std::ios::trunc);
-    //        if (file.is_open()) {
-    //            file << name << "\n";
-    //            file << score << "\n";
-    //            file << std::boolalpha << isAlive << "\n";
-    //        }
-    //    }
-
-    //    // load game data
-    //    bool load = true;
-    //    if (load) {
-    //        // read file (input file ))
-    //        std::ifstream file("assets/data/game.txt");
-    //        if (file.is_open()) {
-    //            std::getline(file, name);
-
-    //            std::string str;
-    //            std::getline(file, str);
-
-    //            score = std::stoi(str);
-    //            file >> std::boolalpha >> isAlive;
-    //        }
-    //    }
-
-    //    std::cout << name << std::endl;
-    //    std::cout << score << std::endl;
-    //    std::cout << std::boolalpha << isAlive << std::endl;
-    //}
+    //auto animal = Animalfactory(selection);
+    //if (animal) animal->speak();
 
     //return 0;
 

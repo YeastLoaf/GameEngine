@@ -21,8 +21,6 @@ bool SpaceGame::Initialize() {
 
     titleFont = Resources().Get<Font>("assets/fonts/airstrike.ttf", 64.0f);
 
-    //Resources().Get<Font>("", 64);
-
     titleFont->Load("assets/fonts/airstrike.ttf", 64);
 
     titleText = new Text(titleFont);
@@ -111,6 +109,8 @@ void SpaceGame::Update(float dt) {
 }
 
 void SpaceGame::Draw(nu::Renderer& renderer) {
+    renderer.DrawTexture(*nu::Resources().Get<Texture>("background.png", Engine::Get().GetRenderer()), 1000, 500);
+
     switch (m_gamestate)
     {
     case GameState::Title:
