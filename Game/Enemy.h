@@ -2,7 +2,7 @@
 #include "Actor.h"
 
 struct EnemyDesc : public nu::ActorDesc {
-	float speed = speed;
+	float speed = 0.0f;
 };
 
 class Enemy : public nu::Actor {

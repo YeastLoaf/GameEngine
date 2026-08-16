@@ -31,6 +31,7 @@ bool SpaceGame::Initialize() {
 
     scoreText = new Text(gameFont);
     livesText = new Text(gameFont);
+    finalScoreText = new Text(gameFont);
 
     FMOD::System* audio;
     FMOD::System_Create(&audio);
@@ -91,13 +92,24 @@ void SpaceGame::Update(float dt) {
 
         if (m_powerUpTimer <= 0.0f) {
             SpawnPowerUp();
-            m_powerUpTimer = 10.0f;
+            if (m_spawnTime > 3.0f) {
+                m_powerUpTimer = m_spawnTime;
+            }
+            else if (m_spawnTime > 1.0f) {
+                m_powerUpTimer = m_spawnTime * 5;
+            }
+            else {
+                m_powerUpTimer = m_spawnTime * 10;
+            }
         }
         break;
     case GameState::GameOver:
+        m_finalScore = m_score;
         m_stateTimer -= dt;
         if (m_stateTimer <= 0) {
             m_scene->RemoveAllActors();
+        }
+        if (Engine::Get().GetInput().GetKeyPressed(SDL_SCANCODE_SPACE)) {
             m_gamestate = GameState::Title;
         }
         break;
@@ -127,6 +139,8 @@ void SpaceGame::Draw(nu::Renderer& renderer) {
         livesText->Draw(renderer, renderer.GetWidth() - 160.0f, 30.0f);
         break;
     case GameState::GameOver:
+        finalScoreText->Create(renderer, "Final score: " + std::to_string(m_finalScore), { 1.0f, 1.0f, 1.0f });
+        finalScoreText->Draw(renderer, 800.0f, 400.0f);
         break;
     default:
         break;
@@ -150,7 +164,6 @@ void SpaceGame::OnPlayerDead() {
 void SpaceGame::SpawnPlayer() {
     PlayerDesc playerDesc;
     playerDesc.name = "Player";
-    //playerDesc.model = assets::playerModel;
     playerDesc.texture = Resources().Get<Texture>("player.png", Engine::Get().GetRenderer());
     playerDesc.transform = Transform{ Vector2{640.0f, 512.0f}, 0.0f, 1.0f };
     playerDesc.vel = Vector2{ 0.0f, 0.0f };
@@ -164,7 +177,6 @@ void SpaceGame::SpawnPlayer() {
 void SpaceGame::SpawnEnemy() {
     EnemyDesc enemyDesc;
     enemyDesc.name = "Enemy";
-    //enemyDesc.model = assets::enemyModel;
     enemyDesc.texture = Resources().Get<Texture>("enemy.png", Engine::Get().GetRenderer());
     enemyDesc.transform = Transform{ Vector2{ nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetWidth()), nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetHeight())}, 90.0f, 1.0f };
     enemyDesc.vel = Vector2{ 0.0f, 0.0f };

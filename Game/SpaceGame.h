@@ -33,6 +33,7 @@ private:
 private:
 	int m_score{ 0 };
 	int m_lives{ 0 };
+	int m_finalScore{ 0 };
 
 	float m_stateTimer = 0.0f;
 	float m_powerUpTimer = 0.0f;
@@ -46,14 +47,11 @@ private:
 	nu::res_t<nu::Font> titleFont;
 	nu::res_t<nu::Font> gameFont;
 
-	//nu::Font* titleFont{ nullptr };
 	nu::Text* titleText{ nullptr };
 
-	//nu::Font* gameOverFont{ nullptr };
 	nu::Text* gameOverText{ nullptr };
-
-	//nu::Font* gameFont{ nullptr };
 
 	nu::Text* scoreText{ nullptr };
 	nu::Text* livesText{ nullptr };
+	nu::Text* finalScoreText{ nullptr };
 };

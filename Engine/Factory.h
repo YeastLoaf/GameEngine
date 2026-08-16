@@ -62,7 +62,6 @@ namespace nu {
 
         auto iter = m_registry.find(lowerName);
 
-        // auto creater = m_registry[lowerName];
         // create unique pointer to object
         auto object = iter->second->Create();
 

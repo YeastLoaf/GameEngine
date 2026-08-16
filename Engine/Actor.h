@@ -60,7 +60,7 @@ namespace nu {
         std::string m_tag;
 
         Transform m_transform;
-        Vector2 m_velocity{ 0, 0 };
+        Vector2 m_velocity;
         float m_damping{ 0.0f };
         float m_lifespan{ 0.0f };
         bool m_destroyed{ false };

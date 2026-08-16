@@ -14,6 +14,7 @@
 #include "Texture.h"
 #include "StringUtils.h"
 #include "Factory.h"
+#include "json.h"
 
 #include <vector>
 #include <iostream>

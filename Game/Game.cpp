@@ -13,104 +13,57 @@
 #include <memory>
 #include <random>
 #include <fstream>
+#include <File.h>
 
 using namespace nu;
 
-class Animal {
-public:
-    virtual void speak() { std::cout << "???"; }
-};
-
-class Cat : public Animal {
-    void speak() override { std::cout << "meow"; }
-};
-
-class Dog : public Animal {
-    void speak() override { std::cout << "woof"; }
-};
-
-class Bird : public Animal {
-    void speak() override { std::cout << "scraw"; }
-};
-
-/*
-enum class Type {
-    Cat = 1,
-    Dog = 2,
-    Bird = 3
-};
-
-Animal* Animalfactory(Type id) {
-    Animal* animal = nullptr;
-
-    switch (id) {
-    case Type::Cat:
-        animal = new Cat;
-        break;
-    case Type::Dog:
-        animal = new Dog;
-        break;
-    case Type::Bird:
-        animal = new Bird;
-        break;
-    }
-
-    return animal;
-}
-*/
-
-Animal* Animalfactory(const std::string& id) {
-    Animal* animal = nullptr;
-
-    if (nu::ToLower(id) == "cat") animal = new Cat;
-    else if (nu::EqualsIgnoreCase(id, "Dog")) animal = new Dog;
-    else if (id == "Bird") animal = new Bird;
-
-    return animal;
-}
-/*
-class ICreater {
-public:
-    virtual ~ICreater() = default;
-    virtual std::unique_ptr<Animal> Create() = 0;
-};
-
-template <typename T>
-class Creater : public ICreater {
-public:
-    std::unique_ptr<Animal> Create() override {
-        return std::make_unique<T>();
-    }
-};
-
-std::map<std::string, std::unique_ptr<ICreater>> registry;
-
-*/
-
 int main() {
-    //Factory::Instance().Register<Actor>("Actor");
-    //auto actor = Factory::Instance().Create<Actor>("Actor");
-    //std::cout << actor->IsActive() << std::endl;
+    // load the json data from a file
+    std::string buffer;
+    if (ReadTextFile("assets/data/data.json", buffer))
+    {
+        // show the contents of the json file (debug)
+        std::cout << buffer << std::endl;
 
+        // create json document from the json file contents
+        rapidjson::Document document;
+        if (json::Load("assets/data/data.json", document))
+        {
+            // read the data from the json
+            std::string name;
+            int age;
+            float speed;
+            bool isAwake;
+            Vector2 position;
+            Vector3 color;
 
+            JSON_READ(document, name);
+            JSON_READ(document, age);
+            JSON_READ(document, speed);
+            JSON_READ(document, isAwake);
+            JSON_READ(document, position);
+            JSON_READ(document, color);
 
-    //registry["Cat"] = std::make_unique<Creater<Cat>>();
-    //registry["Dog"] = std::make_unique<Creater<Dog>>();
+            // show the data
+            std::cout << name << " " << age << " " << speed << " " << isAwake << std::endl;
+            std::cout << position.x << " " << position.y << std::endl;
+            std::cout << color.x << " " << color.y << " " << color.z << " " << std::endl;
+        }
+    }
 
-    //{
-    //    auto animal = registry["Dog"]->Create();
-    //    animal->speak();
-    //}
+    //+ After running the program, the console will display the contents of the** JSON** file and the** age** data.
+    //    <div align = "left">
+    //    <img src = "json-output.jpg" alt = "Output" width = "80%" / >
+    //    < / div>
 
-    //std::string selection;
+    //    ### Add Addition JSON Functions ###
+    //    _Add additional functions to load different data types from the * *JSON * *file._
 
-    //std::cout << "Selecte animal: ";
-    //std::cin >> selection;
+    //    + In the Json.h file, _add_ the following functions.
+    //    + Add new functions to load * *float**, **bool**, **std::string**, ** vec2**, and **vec3**
+    //    +Include * *Math / Vector2.h * *and **Math / Vector3.h * *
 
-    //auto animal = Animalfactory(selection);
-    //if (animal) animal->speak();
-
-    //return 0;
+    return 0;
 
     Engine& e = Engine::Get();
 
