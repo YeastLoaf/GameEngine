@@ -15,6 +15,7 @@
 #include "StringUtils.h"
 #include "Factory.h"
 #include "json.h"
+#include "Factory.h"
 
 #include <vector>
 #include <iostream>

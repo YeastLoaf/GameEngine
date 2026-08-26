@@ -79,5 +79,8 @@
     <None Include="scene.json">
       <Filter>Assets</Filter>
     </None>
+    <None Include="..\Build\assets\data\scene.json">
+      <Filter>Assets</Filter>
+    </None>
   </ItemGroup>
 </Project>

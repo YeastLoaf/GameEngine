@@ -4,6 +4,8 @@
 #include "Model.h"
 #include "Resource.h"
 #include "Object.h"
+#include "Component.h"
+#include "json.h"
 #include <string>
 #include <memory>
 
@@ -25,14 +27,15 @@ namespace nu {
     class Actor : public Object {
     public:
         Actor() = default;
-        Actor(const ActorDesc& actorDesc) : m_name{ actorDesc.name }, m_tag{ actorDesc.tag }, m_transform{ actorDesc.transform }, m_damping{ actorDesc.damping }, m_velocity{ actorDesc.vel }, m_lifespan{ actorDesc.lifespan }, m_model{ actorDesc.model }, m_texture{ actorDesc.texture } {}
+        Actor(const ActorDesc& actorDesc) : m_tag{ actorDesc.tag }, m_transform{ actorDesc.transform }, m_damping{ actorDesc.damping }, m_velocity{ actorDesc.vel }, m_lifespan{ actorDesc.lifespan }, m_model{ actorDesc.model }, m_texture{ actorDesc.texture } {}
 
         virtual void Update(float dt);
         virtual void Draw(const class Renderer& renderer) const;
+        virtual void Read(const json::value_t& value) override;
 
         virtual void OnCollision(Actor* other) {};
 
-        const Transform& GetTeansform() const { return m_transform; }
+        const Transform& GetTransform() const { return m_transform; }
         void SetPosition(const Vector2 position) { m_transform.pos = position; }
         void SetRotation(float rotation) { m_transform.rotation = rotation; }
         void SetScale(float scale) { m_transform.scale = scale; }
@@ -53,10 +56,10 @@ namespace nu {
 
         void SetDestroyed(bool destroy) { m_destroyed = destroy; }
 
+
         friend Scene;
 
     protected:
-        std::string m_name;
         std::string m_tag;
 
         Transform m_transform;
@@ -69,5 +72,6 @@ namespace nu {
         res_t<Texture> m_texture;
 
         Scene* m_scene{ nullptr };
+        std::vector<Component*> m_components;
     };
 }

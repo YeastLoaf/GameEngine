@@ -8,8 +8,8 @@
   "texture": "player.png",
   "transform": {
     "pos": [ 640, 512 ],
-    "rotation": 50,
-    "scale": 1
+    "rotation": 45,
+    "scale": 10
   },
   "components": [
     {
@@ -18,6 +18,3 @@
     }
   ]
 }
-//{
-//  "type": "Enemy"
-//}

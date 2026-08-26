@@ -5,8 +5,11 @@
 #include "../Game/Bullet.h"
 #include "../Game/Assets.h"
 #include "FMod.h"
+#include "Factory.h"
 
 #include <ResourceManager.h>
+
+//FACTORY_REGISTER(Player)
 
 void Player::Update(float dt) {
     float thrust = 0.0f;
@@ -138,4 +141,10 @@ void Player::OnCollision(Actor* other) {
         other->SetDestroyed(true);
         size = true;
     }
+}
+
+void Player::Read(const nu::json::value_t& value) {
+    Actor::Read(value);
+
+    JSON_READ_NAME(value, "speed", m_speed);
 }

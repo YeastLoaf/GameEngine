@@ -2,9 +2,22 @@
 
 #include "Object.h"
 #include "Singleton.h"
+#include "StringUtils.h"
 
 #include <memory>
 #include <map>
+
+
+//#define FACTORY_REGISTER(classname)                                     \
+//    class Register##classname                                           \
+//    {                                                                   \
+//    public:                                                             \
+//        Register##classname()                                           \
+//        {                                                               \
+//            nu::Factory::Instance().Register<classname>(#classname);    \
+//        }                                                               \
+//    };                                                                  \
+//    static Register##classname registerInstance;
 
 namespace nu {
     class ICreater {
@@ -46,6 +59,8 @@ namespace nu {
             std::cerr << "Object alreay registered: " << name << std::endl;
             return;
         }
+
+        std::cout << "Object registered: " << name << std::endl;
 
         m_registry[lowerName] = std::make_unique<Creater<T>>();
     }

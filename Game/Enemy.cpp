@@ -5,10 +5,12 @@
 #include "SpaceGame.h"
 #include "FMod.h"
 
+//FACTORY_REGISTER(Enemy)
+
 void Enemy::Update(float dt) {
     Player* player = m_scene->GetActorByName<Player>("Player");
     if (player) {
-        nu::Vector2 direction = player->GetTeansform().pos - m_transform.pos;
+        nu::Vector2 direction = player->GetTransform().pos - m_transform.pos;
         float rotation = direction.Angle();
         SetRotation(rotation * nu::RadToDeg);
 
