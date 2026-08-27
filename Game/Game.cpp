@@ -5,6 +5,10 @@
 #include "FMod.h"
 #include "SpaceGame.h"
 #include "ResourceManager.h"
+#include "Bullet.h"
+#include "Size.h"
+#include "CircleShot.h"
+#include "TripleShot.h"
 
 #include <iostream>
 #include <vector>
@@ -18,78 +22,6 @@
 using namespace nu;
 
 int main() {
-    // load the json data from a file
-    //std::string buffer;
-    //if (ReadTextFile("assets/data/data.json", buffer))
-    //{
-    //    // show the contents of the json file (debug)
-    //    std::cout << buffer << std::endl;
-
-    //    // create json document from the json file contents
-    //    rapidjson::Document document;
-    //    if (json::Load("assets/data/data.json", document))
-    //    {
-    //        // read the data from the json
-    //        std::string name;
-    //        int age;
-    //        float speed;
-    //        bool isAwake;
-    //        Vector2 position;
-    //        Vector3 color;
-
-    //        JSON_READ(document, name);
-    //        JSON_READ(document, age);
-    //        JSON_READ(document, speed);
-    //        JSON_READ(document, isAwake);
-    //        JSON_READ(document, position);
-    //        JSON_READ(document, color);
-
-    //        // show the data
-    //        std::cout << name << " " << age << " " << speed << " " << isAwake << std::endl;
-    //        std::cout << position.x << " " << position.y << std::endl;
-    //        std::cout << color.x << " " << color.y << " " << color.z << " " << std::endl;
-    //    }
-    //}
-
-    //+ After running the program, the console will display the contents of the** JSON** file and the** age** data.
-    //    <div align = "left">
-    //    <img src = "json-output.jpg" alt = "Output" width = "80%" / >
-    //    < / div>
-
-    //    ### Add Addition JSON Functions ###
-    //    _Add additional functions to load different data types from the * *JSON * *file._
-
-    //    + In the Json.h file, _add_ the following functions.
-    //    + Add new functions to load * *float**, **bool**, **std::string**, ** vec2**, and **vec3**
-    //    +Include * *Math / Vector2.h * *and **Math / Vector3.h * *
-
-
-    Factory::Instance().Register<Actor>("Actor");   //    ->      delete this after
-    Factory::Instance().Register<Object>("Object"); //    ->      delete this after
-    Factory::Instance().Register<Player>("Player"); //    ->      delete this after
-
-    auto actor = Factory::Instance().Create<Actor>("Actor");
-    std::cout << actor->IsActive() << std::endl;
-
-    auto object = Factory::Instance().Create("Object");
-    std::cout << object->IsActive() << std::endl;
-
-    auto player = Factory::Instance().Create<Player>("Player");
-    std::cout << player->IsActive() << std::endl;
-
-    json::document_t document;
-    if (json::Load("assets/data/scene.json", document)) {
-        player->Read(document);
-        std::cout << player->GetName() << std::endl;
-        std::cout << player->GetTag() << std::endl;
-
-        std::cout << player->GetTransform().pos.x << std::endl;
-        std::cout << player->GetTransform().pos.y << std::endl;
-        std::cout << player->GetTransform().rotation << std::endl;
-        std::cout << player->GetSpeed() << std::endl;
-    }
-
-    return 0;
     Engine& e = Engine::Get();
 
     // INITIALIZE
@@ -149,4 +81,3 @@ int main() {
 
     return 0;
 }
-

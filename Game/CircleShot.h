@@ -10,7 +10,11 @@ public:
 	CircleShot() = default;
 	CircleShot(const CircleShotDesc& BulletDesc) : Actor{ BulletDesc }, m_speed{ BulletDesc.speed } {}
 
+	CLASS_PROTOTYPE(CircleShot);
+
 	void Update(float dt) override;
+
+	virtual void Read(const nu::json::value_t& value) override;
 
 private:
 	int m_ammo = 0;

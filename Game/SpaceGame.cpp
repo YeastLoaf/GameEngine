@@ -18,9 +18,9 @@ bool SpaceGame::Initialize() {
 
     m_scene = new Scene();
     m_scene->SetGame(this);
+    m_scene->Load("assets/data/scene.json");
 
     titleFont = Resources().Get<Font>("assets/fonts/airstrike.ttf", 64.0f);
-
     titleFont->Load("assets/fonts/airstrike.ttf", 64);
 
     titleText = new Text(titleFont);
@@ -162,29 +162,14 @@ void SpaceGame::OnPlayerDead() {
 }
 
 void SpaceGame::SpawnPlayer() {
-    PlayerDesc playerDesc;
-    playerDesc.name = "Player";
-    playerDesc.texture = Resources().Get<Texture>("player.png", Engine::Get().GetRenderer());
-    playerDesc.transform = Transform{ Vector2{640.0f, 512.0f}, 0.0f, 1.0f };
-    playerDesc.vel = Vector2{ 0.0f, 0.0f };
-    playerDesc.damping = 3.0f;
-    playerDesc.speed = 4000.0f;
-
-    std::unique_ptr<Player> player = std::make_unique<Player>( playerDesc );
-    m_scene->AddActor(std::move(player));
+    auto actor = Factory::Instance().Create<Actor>("PlayerPrototype");
+    m_scene->AddActor(std::move(actor));
 }
 
 void SpaceGame::SpawnEnemy() {
-    EnemyDesc enemyDesc;
-    enemyDesc.name = "Enemy";
-    enemyDesc.texture = Resources().Get<Texture>("enemy.png", Engine::Get().GetRenderer());
-    enemyDesc.transform = Transform{ Vector2{ nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetWidth()), nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetHeight())}, 90.0f, 1.0f };
-    enemyDesc.vel = Vector2{ 0.0f, 0.0f };
-    enemyDesc.damping = 3.0f;
-    enemyDesc.speed = RandomFloat(1000.0f, 4000.0f);
-
-    std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(enemyDesc);
-    m_scene->AddActor(std::move(enemy));
+    auto actor = Factory::Instance().Create<Actor>("EnemyPrototype");
+    actor->SetPosition(nu::Vector2{ nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetWidth()), nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetHeight()) });
+    m_scene->AddActor(std::move(actor));
 }
 
 void SpaceGame::SpawnPowerUp() {
@@ -193,6 +178,7 @@ void SpaceGame::SpawnPowerUp() {
     if (power == 1) {
         TripleShotDesc tripleShot;
         tripleShot.name = "TripleShot";
+        tripleShot.tag = "TripleShot";
         tripleShot.model = assets::tripleShotModel;
         tripleShot.transform = Transform{ Vector2{ nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetWidth()), nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetHeight())}, 90.0f, 10.0f };
         tripleShot.vel = Vector2{ 0.0f, 0.0f };
@@ -203,6 +189,7 @@ void SpaceGame::SpawnPowerUp() {
     } else if (power == 0) {
         CircleShotDesc circleShot;
         circleShot.name = "CircleShot";
+        circleShot.tag = "CircleShot";
         circleShot.model = assets::circleShotModel;
         circleShot.transform = Transform{ Vector2{ nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetWidth()), nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetHeight())}, 90.0f, 10.0f };
         circleShot.vel = Vector2{ 0.0f, 0.0f };
@@ -213,6 +200,7 @@ void SpaceGame::SpawnPowerUp() {
     } else if (power == 2) {
         SizeDesc Sizes;
         Sizes.name = "Size";
+        Sizes.tag = "Size";
         Sizes.model = assets::sizeModel;
         Sizes.transform = Transform{ Vector2{ nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetWidth()), nu::RandomFloat((float)nu::Engine::Get().GetRenderer().GetHeight())}, 90.0f, 10.0f };
         Sizes.vel = Vector2{ 0.0f, 0.0f };

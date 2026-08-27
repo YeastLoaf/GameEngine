@@ -9,7 +9,7 @@
 
 #include <ResourceManager.h>
 
-//FACTORY_REGISTER(Player)
+FACTORY_REGISTER(Player)
 
 void Player::Update(float dt) {
     float thrust = 0.0f;
@@ -119,24 +119,24 @@ void Player::Draw(const nu::Renderer& renderer) const {
 }
 
 void Player::OnCollision(Actor* other) {
-    if (other->GetName() == "Enemy") {
+    if (other->GetTag() == "Enemy") {
         SetDestroyed(true);
         ((SpaceGame*)m_scene->GetGame())->OnPlayerDead();
     }
 
-    if (other->GetName() == "TripleShot") {
+    if (other->GetTag() == "TripleShot") {
         m_powerUpTimer = 10.0f;
         other->SetDestroyed(true);
         triple = true;
     }
 
-    if (other->GetName() == "CircleShot") {
+    if (other->GetTag() == "CircleShot") {
         m_powerUpTimer = 10.0f;
         other->SetDestroyed(true);
         circle = true;
     }
 
-    if (other->GetName() == "Size") {
+    if (other->GetTag() == "Size") {
         m_powerUpTimer = 10.0f;
         other->SetDestroyed(true);
         size = true;

@@ -1,1 +1,27 @@
 #pragma once
+#include "Object.h"
+
+namespace nu {
+
+	class Actor;
+
+	class Component : public Object {
+	public:
+		Component() = default;
+		virtual ~Component() = default;
+
+		Actor* GetOwner() { return m_owner; }
+		virtual void Start() {}
+		virtual void Destroyed() {}
+
+		virtual void Update(float dt) {}
+
+		void SetOwner(Actor* owner) { m_owner = owner; }
+
+	protected:
+		Actor* m_owner = nullptr;
+
+	private:
+
+	};
+}

@@ -4,7 +4,7 @@
 #include "Model.h"
 #include "Resource.h"
 #include "Object.h"
-#include "Component.h"
+#include "Framework/Component.h"
 #include "json.h"
 #include <string>
 #include <memory>
@@ -27,7 +27,15 @@ namespace nu {
     class Actor : public Object {
     public:
         Actor() = default;
-        Actor(const ActorDesc& actorDesc) : m_tag{ actorDesc.tag }, m_transform{ actorDesc.transform }, m_damping{ actorDesc.damping }, m_velocity{ actorDesc.vel }, m_lifespan{ actorDesc.lifespan }, m_model{ actorDesc.model }, m_texture{ actorDesc.texture } {}
+        Actor(const ActorDesc& actorDesc) : 
+            m_tag{ actorDesc.tag }, 
+            m_transform{ actorDesc.transform }, 
+            m_velocity{ actorDesc.vel }, 
+            m_damping{ actorDesc.damping }, 
+            m_lifespan{ actorDesc.lifespan }
+        { }
+
+        CLASS_PROTOTYPE(Actor)
 
         virtual void Update(float dt);
         virtual void Draw(const class Renderer& renderer) const;
@@ -50,7 +58,6 @@ namespace nu {
         Scene* GetScene() { return m_scene; }
 
         float GetRadius() const;
-        void SetModel(std::shared_ptr<Model> model) { m_model = model; }
 
         float GetDestroyed() const { return m_destroyed; }
 
@@ -67,9 +74,6 @@ namespace nu {
         float m_damping{ 0.0f };
         float m_lifespan{ 0.0f };
         bool m_destroyed{ false };
-
-        res_t<Model> m_model;
-        res_t<Texture> m_texture;
 
         Scene* m_scene{ nullptr };
         std::vector<Component*> m_components;

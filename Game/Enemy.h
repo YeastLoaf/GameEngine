@@ -10,9 +10,13 @@ public:
 	Enemy() = default;
 	Enemy(const EnemyDesc& enemyDesc) : Actor{ enemyDesc }, m_speed{ enemyDesc.speed } {}
 
+	CLASS_PROTOTYPE(Enemy);
+
 	void Update(float dt) override;
 	void OnCollision(Actor* other) override;
 	void Draw(const class nu::Renderer& renderer) const;
+
+	virtual void Read(const nu::json::value_t& value) override;
 
 private:
 	int m_ammo = 0;
