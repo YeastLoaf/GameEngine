@@ -5,8 +5,6 @@
 #include "MathUtil.h"
 #include "Texture.h"
 
-#include <iostream>
-
 namespace nu {
 	bool Renderer::initialize(const char* name, int width, int height) {
 

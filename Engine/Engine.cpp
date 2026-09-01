@@ -1,11 +1,7 @@
 // Engine.cpp : Defines the functions for the static library.
-//
 
 #include "pch.h"
 #include "Engine.h"
-#include "framework.h"
-
-#include <iostream>
 
 namespace nu {
 	bool nu::Engine::Initialize() {

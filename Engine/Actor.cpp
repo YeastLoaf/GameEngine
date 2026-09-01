@@ -6,7 +6,6 @@
 #include "Factory.h"
 #include "Engine.h"
 #include "ResourceManager.h"
-#include <Components/RendererComponent.h>
 
 namespace nu {
 	FACTORY_REGISTER(Actor)
