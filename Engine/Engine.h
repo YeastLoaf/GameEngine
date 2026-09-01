@@ -8,6 +8,7 @@
 #include "File.h"
 #include "json.h"
 #include "StringUtils.h"
+#include "Physics.h"
 
 #include "Text.h"
 #include "Texture.h"
@@ -41,6 +42,7 @@ namespace nu {
 		Renderer& GetRenderer() { return m_renderer; }
 		Time& GetTime() { return m_time; }
 		ParticleSystem& GetPS() { return m_particlesystem; }
+		Physics& GetPhysics() { return m_physics; }
 
 		Engine& operator = (const Engine&) = delete;
 	private:
@@ -51,5 +53,6 @@ namespace nu {
 		Renderer m_renderer;
 		ParticleSystem m_particlesystem;
 		Time m_time;
+		Physics m_physics;
 	};
 }
