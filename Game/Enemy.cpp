@@ -35,7 +35,7 @@ void Enemy::Update(float dt) {
 }
 
 void Enemy::OnCollision(Actor* other) {
-    if (other->GetTag() == "PlayerBullet") {
+    if (other->GetTag() == "Bullet") {
 
         FMOD::System* audio;
         FMOD::System_Create(&audio);

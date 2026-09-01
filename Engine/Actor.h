@@ -4,7 +4,7 @@
 #include "Model.h"
 #include "Resource.h"
 #include "Object.h"
-#include "Framework/Component.h"
+#include "Components/Component.h"
 #include "json.h"
 #include <string>
 #include <memory>
@@ -35,6 +35,8 @@ namespace nu {
             m_lifespan{ actorDesc.lifespan }
         { }
 
+        Actor(const Actor& other);
+
         CLASS_PROTOTYPE(Actor)
 
         virtual void Update(float dt);
@@ -44,6 +46,8 @@ namespace nu {
         virtual void OnCollision(Actor* other) {};
 
         const Transform& GetTransform() const { return m_transform; }
+        void SetTransform(const Transform& transform) { m_transform = transform; }
+
         void SetPosition(const Vector2 position) { m_transform.pos = position; }
         void SetRotation(float rotation) { m_transform.rotation = rotation; }
         void SetScale(float scale) { m_transform.scale = scale; }
@@ -61,8 +65,14 @@ namespace nu {
 
         float GetDestroyed() const { return m_destroyed; }
 
+        float GetRotation() const { return m_transform.rotation; }
+
         void SetDestroyed(bool destroy) { m_destroyed = destroy; }
 
+        void AddComponent(std::unique_ptr<Component> component);
+
+        template<std::derived_from<Component> T>
+        T* GetComponent();
 
         friend Scene;
 
@@ -70,12 +80,25 @@ namespace nu {
         std::string m_tag;
 
         Transform m_transform;
-        Vector2 m_velocity;
+        Vector2 m_velocity{ 0, 0 };
         float m_damping{ 0.0f };
         float m_lifespan{ 0.0f };
         bool m_destroyed{ false };
 
+        std::vector<std::unique_ptr<Component>> m_components;
+
         Scene* m_scene{ nullptr };
-        std::vector<Component*> m_components;
     };
+
+    template<std::derived_from<Component> T>
+    inline T* Actor::GetComponent() {
+        for (auto &component : m_components) {
+            auto result = dynamic_cast<T*>(component.get());
+            if (result) {
+                return result;
+            }
+        }
+
+        return nullptr;
+    }
 }

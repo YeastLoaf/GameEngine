@@ -111,8 +111,14 @@
     <ClInclude Include="Components\SpriteRendererComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="Framework\Component.h">
-      <Filter>Framework</Filter>
+    <ClInclude Include="Components\ColliderComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Component.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\CircleColliderComponent.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +171,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Components\SpriteRendererComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\CircleColliderComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

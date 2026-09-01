@@ -10,7 +10,7 @@ namespace nu {
 		Component() = default;
 		virtual ~Component() = default;
 
-		Actor* GetOwner() { return m_owner; }
+		Actor* GetOwner() const { return m_owner; }
 		virtual void Start() {}
 		virtual void Destroyed() {}
 

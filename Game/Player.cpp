@@ -70,37 +70,37 @@ void Player::Update(float dt) {
     //fire
     if (nu::Engine::Get().GetInput().GetKeyPressed(SDL_SCANCODE_SPACE)) {
 
-        BulletDesc desc;
-        desc.name = "Bullet";
-        desc.tag = "PlayerBullet";
-        //desc.model = assets::bulletModel;
-        desc.texture = nu::Resources().Get<nu::Texture>("bullet.png", nu::Engine::Get().GetRenderer());
-        desc.transform = m_transform;
-        desc.transform.scale = sizes;
-        desc.speed = 400.0f;
-        desc.lifespan = 2.0f;
+        auto bullet = nu::Factory::Instance().Create<Bullet>("BulletPrototype");
+        bullet->SetTransform(m_transform);
+        bullet->SetScale(sizes);
+
+        m_scene->AddActor(std::move(bullet));
 
         audio->playSound(sounds[0], 0, false, nullptr);
 
-        Bullet* bullet = new Bullet{ desc };
-        m_scene->AddActor(std::move(std::make_unique<Bullet>(desc)));
-        
         if (triple == true) {
-            desc.transform.rotation += 10.0f;
-            Bullet* bullet2 = new Bullet{ desc };
-            m_scene->AddActor(std::move(std::make_unique<Bullet>(desc)));
-
-            desc.transform.rotation -= 20.0f;
-            Bullet* bullet3 = new Bullet{ desc };
-            m_scene->AddActor(std::move(std::make_unique<Bullet>(desc)));
+            auto bullet2 = nu::Factory::Instance().Create<Bullet>("BulletPrototype");
+            bullet2->SetTransform(m_transform);
+            bullet2->SetScale(sizes);
+            bullet2->SetRotation(bullet2->GetRotation() + 10.0f);
+                     
+            auto bullet3 = nu::Factory::Instance().Create<Bullet>("BulletPrototype");
+            bullet3->SetTransform(m_transform);
+            bullet3->SetScale(sizes);
+            bullet2->SetRotation(bullet2->GetRotation() - 10.0f);
         }
 
         if (circle == true) {
+            auto bullet4 = nu::Factory::Instance().Create<Bullet>("BulletPrototype");
+            bullet4->SetScale(sizes);
+            bullet4->SetTransform(m_transform);
+            float f = bullet4->GetRotation();
+            float reset = bullet4->GetRotation();
             for (int x = 0; x < 7; x++) {
-                desc.transform.rotation += 45.0f;
-                Bullet* bullet2 = new Bullet{ desc };
-                m_scene->AddActor(std::move(std::make_unique<Bullet>(desc)));
+                f += 45.0f;
+                bullet4->SetRotation(f);
             }
+            bullet4->SetRotation(reset);
         }
     }
 
