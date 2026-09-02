@@ -9,7 +9,7 @@
 #include "FMod.h"
 
 #include <memory>
-#include <ResourceManager.h>
+#include <Resources/ResourceManager.h>
 
 using namespace nu;
 

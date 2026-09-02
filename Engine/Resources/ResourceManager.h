@@ -1,6 +1,6 @@
 #pragma once
 #include "Resource.h"
-#include "singleton.h"
+#include "Core/singleton.h"
 
 #include <map>
 #include <string>

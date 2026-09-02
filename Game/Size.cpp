@@ -1,5 +1,5 @@
 #include "Size.h"
-#include "Factory.h"
+#include "Core/Factory.h"
 
 FACTORY_REGISTER(Size)
 

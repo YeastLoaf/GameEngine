@@ -1,5 +1,5 @@
 #include "TripleShot.h"
-#include "Factory.h"
+#include "Core/Factory.h"
 
 FACTORY_REGISTER(TripleShot)
 

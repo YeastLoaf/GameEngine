@@ -4,7 +4,7 @@
 #include "assets.h"
 #include "FMod.h"
 #include "SpaceGame.h"
-#include "ResourceManager.h"
+#include "Resources/ResourceManager.h"
 #include "Bullet.h"
 #include "Size.h"
 #include "CircleShot.h"
@@ -17,7 +17,7 @@
 #include <memory>
 #include <random>
 #include <fstream>
-#include <File.h>
+#include <Core/File.h>
 
 using namespace nu;
 

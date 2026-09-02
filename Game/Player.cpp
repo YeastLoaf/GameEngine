@@ -1,13 +1,13 @@
 #include "Player.h"
-#include "Renderer.h"
+#include "Renderer/Renderer.h"
 #include "Engine.h"
 #include "SpaceGame.h"
 #include "../Game/Bullet.h"
 #include "../Game/Assets.h"
 #include "FMod.h"
-#include "Factory.h"
+#include "Core/Factory.h"
 
-#include <ResourceManager.h>
+#include <Resources/ResourceManager.h>
 
 FACTORY_REGISTER(Player)
 

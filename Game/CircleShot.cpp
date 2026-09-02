@@ -1,5 +1,5 @@
 #include "CircleShot.h"
-#include "Factory.h"
+#include "Core/Factory.h"
 
 FACTORY_REGISTER(CircleShot)
 

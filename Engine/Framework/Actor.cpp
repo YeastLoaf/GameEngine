@@ -1,11 +1,11 @@
 #include "pch.h"
 #include "Actor.h"
-#include "Renderer.h"
-#include "MathUtil.h"
-#include "Texture.h"
-#include "Factory.h"
+#include "Renderer/Renderer.h"
+#include "Math/MathUtil.h"
+#include "Renderer/Texture.h"
+#include "Core/Factory.h"
 #include "Engine.h"
-#include "ResourceManager.h"
+#include "Resources/ResourceManager.h"
 
 namespace nu {
 	FACTORY_REGISTER(Actor)
